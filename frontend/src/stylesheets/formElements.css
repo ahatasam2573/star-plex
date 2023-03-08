@@ -1,0 +1,19 @@
+input {
+  height: 40px;
+  padding-left: 15px;
+  margin-top: 0;
+  border: 1px solid #ffdcdc;
+  width: 100%;
+  border-radius: 10px;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid rgb(196, 196, 196);
+}
+.ant-form-item {
+  margin-bottom: 10px;
+}
+.ant-col {
+  padding-bottom: 0;
+}

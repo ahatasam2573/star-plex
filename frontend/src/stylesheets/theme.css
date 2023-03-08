@@ -1,5 +1,5 @@
 :root {
-  --color-primary: #08ec76;
+  --color-primary: #003946;
   --color-secondary: #7a0fbcec;
 }
 .bg-primary {
@@ -16,6 +16,9 @@
 }
 .text-white {
   color: white;
+}
+.text-black {
+  color: black;
 }
 .border-primary {
   border-color: var(--color-primary);

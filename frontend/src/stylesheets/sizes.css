@@ -9,7 +9,9 @@
 .w-full {
   width: 100%;
 }
-
+.w-semi {
+  width: 50%;
+}
 .text-sm {
   font-size: 14px;
 }

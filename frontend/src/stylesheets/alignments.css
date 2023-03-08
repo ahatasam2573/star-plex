@@ -49,51 +49,53 @@
 }
 
 .mt-1 {
-  margin: 10px;
+  margin-top: 10px;
 }
 
 .mt-2 {
-  margin: 20px;
+  margin-top: 20px;
 }
 
 .mt-3 {
-  margin: 30px;
+  margin-top: 30px;
 }
 
 .mr-1 {
-  margin: 10px;
+  margin-right: 10px;
 }
 
 .mr-2 {
-  margin: 20px;
+  margin-right: 20px;
 }
 
 .mr-3 {
-  margin: 30px;
+  margin-right: 30px;
 }
 
 .ml-1 {
-  margin: 10px;
+  margin-left: 10px;
 }
 
 .ml-2 {
-  margin: 20px;
+  margin-left: 20px;
 }
 
 .ml-3 {
-  margin: 30px;
+  margin-left: 30px;
 }
-
+.ml-4 {
+  margin-left: 40px;
+}
 .mb-1 {
-  margin: 10px;
+  margin-bottom: 10px;
 }
 
 .mb-2 {
-  margin: 20px;
+  margin-bottom: 20px;
 }
 
 .mb-3 {
-  margin: 30px;
+  margin-bottom: 30px;
 }
 
 /* padding */
@@ -110,51 +112,51 @@
 }
 
 .pt-1 {
-  padding: 10px;
+  padding-top: 10px;
 }
 
 .pt-2 {
-  padding: 20px;
+  padding-top: 20px;
 }
 
 .pt-3 {
-  padding: 30px;
+  padding-top: 30px;
 }
 
 .pr-1 {
-  padding: 10px;
+  padding-right: 10px;
 }
 
 .pr-2 {
-  padding: 20px;
+  padding-right: 20px;
 }
 
 .pr-3 {
-  padding: 30px;
+  padding-right: 30px;
 }
 
 .pl-1 {
-  padding: 10px;
+  padding-left: 10px;
 }
 
 .pl-2 {
-  padding: 20px;
+  padding-left: 20px;
 }
 
 .pl-3 {
-  padding: 30px;
+  padding-left: 30px;
 }
 
 .pb-1 {
-  padding: 10px;
+  padding-bottom: 10px;
 }
 
 .pb-2 {
-  padding: 20px;
+  padding-bottom: 20px;
 }
 
 .pb-3 {
-  padding: 30px;
+  padding-bottom: 30px;
 }
 
 /* gap */
@@ -169,4 +171,26 @@
 
 .gap-3 {
   gap: 30px;
+}
+
+/* border-radius */
+
+.br-1 {
+  border-radius: 10px;
+}
+.br-2 {
+  border-radius: 20px;
+}
+.br-3 {
+  border-radius: 30px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+.b-none {
+  border: none;
+}
+.block {
+  display: inline-block;
 }
