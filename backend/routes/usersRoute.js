@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const user = require('../models/userModel');
 const bcrypt = require('bcryptjs'); // for hashing the password because i don't wanna save the plain password in the database
-
+const jwt = require('jsonwebtoken');
 
 //register a new user
 router.post('/register', async (req, res) => {
@@ -32,7 +32,7 @@ router.post('/register', async (req, res) => {
             message: "New user created successfully"
         });
 
-    } catch {
+    } catch (error) {
         res.send({
             success: false,
             message: error.message
@@ -41,4 +41,51 @@ router.post('/register', async (req, res) => {
 
 });
 
-module.exports = router;
+//login a user
+router.post('/login', async (req, res) => {
+    try {
+
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res.send({
+                success: false,
+                message: "User doesn't exists"
+            })
+        }
+
+        //checking the password is correct or not
+        const validPassword = await bcrypt.compare(
+            req.body.password,
+            user.password
+        );
+
+        if (!validPassword) {
+            return res.send({
+                success: false,
+                message: "Password is not correct"
+            });
+        }
+
+        //create and assign a token
+        const token = jwt.sign({ userId: user._id }, process.env.jwt_secret, {
+            expiresIn: '1d'
+        })
+        //here this sign method takes three parameters.1.plain text,2.secret key,3.expires time
+
+
+        res.send({
+            success: true,
+            message: "Login Successful",
+            data: token
+        })
+
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message
+        })
+    }
+})
+
+
+module.exports = router; 
