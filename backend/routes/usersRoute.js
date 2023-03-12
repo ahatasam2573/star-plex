@@ -1,59 +1,52 @@
-const router = require('express').Router();
-const user = require('../models/userModel');
-const bcrypt = require('bcryptjs'); // for hashing the password because i don't wanna save the plain password in the database
-const jwt = require('jsonwebtoken');
+const router = require("express").Router();
+const User = require("../models/userModel");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const authMiddleware = require("../middlewares/authMiddleware");
 
-//register a new user
-router.post('/register', async (req, res) => {
-
+// register a new user
+router.post("/register", async (req, res) => {
     try {
-
-        //email is already exist or not
+        // check if user already exists
         const userExists = await User.findOne({ email: req.body.email });
         if (userExists) {
             return res.send({
                 success: false,
-                message: "User is already exists"
+                message: "User already exists",
             });
         }
 
-        //hash the password
+        // hash the password
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt)
-        // here hash method take two parameters 1. plain text which we input in the password and the 2. salt round which means how many times we try the password section
-
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
         req.body.password = hashedPassword;
 
-        //save the user
-        const newUser = new User(req, body);
-        await newUser.save()
-        res.send({
-            success: true,
-            message: "New user created successfully"
-        });
+        // save the user
+        const newUser = new User(req.body);
+        await newUser.save();
 
+        res.send({ success: true, message: "Registration Successfull , Please login" });
     } catch (error) {
         res.send({
             success: false,
-            message: error.message
-        })
+            message: error.message,
+        });
     }
-
 });
 
-//login a user
-router.post('/login', async (req, res) => {
+// login a user
+router.post("/login", async (req, res) => {
     try {
-
+        // check if user exists
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
             return res.send({
                 success: false,
-                message: "User doesn't exists"
-            })
+                message: "User does not exist",
+            });
         }
 
-        //checking the password is correct or not
+        // check if password is correct
         const validPassword = await bcrypt.compare(
             req.body.password,
             user.password
@@ -62,30 +55,43 @@ router.post('/login', async (req, res) => {
         if (!validPassword) {
             return res.send({
                 success: false,
-                message: "Password is not correct"
+                message: "Invalid password",
             });
         }
 
-        //create and assign a token
+        // create and assign a token
         const token = jwt.sign({ userId: user._id }, process.env.jwt_secret, {
-            expiresIn: '1d'
-        })
-        //here this sign method takes three parameters.1.plain text,2.secret key,3.expires time
-
+            expiresIn: "1d",
+        });
 
         res.send({
             success: true,
-            message: "Login Successful",
-            data: token
-        })
-
+            message: "User logged in successfully",
+            data: token,
+        });
     } catch (error) {
         res.send({
             success: false,
-            message: error.message
-        })
+            message: error.message,
+        });
     }
-})
+});
 
+// get user details by id
+router.get("/get-current-user", authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findById(req.body.userId).select("-password");
+        res.send({
+            success: true,
+            message: "User details fetched successfully",
+            data: user,
+        });
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message,
+        });
+    }
+});
 
-module.exports = router; 
+module.exports = router;
