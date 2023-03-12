@@ -1,13 +1,28 @@
-import React from 'react'
+import React from "react";
 
-const Button = ({ title, onClick, variant, disabled, fullWidth, type }) => {
+function Button({ title, onClick, variant, disabled, fullWidth, type }) {
+    let className = "bg-primary p-1 text-white";
 
+    if (fullWidth) {
+        className += " w-full";
+    }
+    if (variant === "outlined") {
+        className = className.replace(
+            "bg-primary",
+            "border border-primary text-primary bg-white"
+        );
+    }
 
     return (
-        <button style={{ marginLeft: '90px' }} className="w-semi bg-primary p-1 text-white pointer b-none br-1  mt-1" type={type}>
+        <button
+            className={className}
+            type={type}
+            onClick={onClick}
+            disabled={disabled}
+        >
             {title}
-        </button >
-    )
+        </button>
+    );
 }
 
-export default Button
+export default Button;

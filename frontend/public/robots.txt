@@ -1,3 +1,11 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow:
+
+
+// ,
+//     {
+//       "src": "logo512.png",
+//       "type": "image/png",
+//       "sizes": "512x512"
+//     }
